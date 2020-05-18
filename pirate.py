@@ -6,12 +6,12 @@
  **/"""
 
 import os
-from datetime import datetime, timedelta
 
 from twilio.rest import Client
 
 from lib.emailer import Emailer
 from lib.watcher import StockChecker
+from lib.watcher import dt_string
 
 
 def email_formatter():
@@ -66,9 +66,9 @@ def send_email():
                       "exceeded the MAX limit value.\n" \
                       "The data is being collected from https://finance.yahoo.com," \
                       f"\nFor more information check README.md in {git}"
-        sender = f'Stock Hawk <{sender_env}>'
+        sender = f'Black Pearl <{sender_env}>'
         recipient = [f'{recipient_env}']
-        title = 'Stock Monitor Alert'
+        title = f'Black Pearl Alert as of {dt_string}'
         text = f'{email_formatter()}\n\nNavigate to check logs: \n\n{footer_text}'
         email = Emailer(sender, recipient, title, text)
         return email
@@ -79,8 +79,6 @@ def send_email():
 # two arguments for the below functions as lambda passes event, context by default
 def send_whatsapp(data, context):
     if send_email():
-        now = datetime.now() - timedelta(hours=5)
-        dt_string = now.strftime("%A, %B %d, %Y %I:%M %p")
         sid = os.getenv('SID')
         token = os.getenv('TOKEN')
         sender = f"whatsapp:{os.getenv('SEND')}"
@@ -88,7 +86,7 @@ def send_whatsapp(data, context):
         client = Client(sid, token)
         from_number = sender
         to_number = receiver
-        client.messages.create(body=f'{dt_string}\n\nBlack Pearl Notification\nLog info here\n',
+        client.messages.create(body=f'Black Pearl Alert\n\n{email_formatter()}',
                                from_=from_number,
                                to=to_number)
     else:
