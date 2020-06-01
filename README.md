@@ -1,5 +1,7 @@
 # Black Pearl
-A report on the list shares on your watchlist that has either deceeded the MIN threshold or exceeded the MAX limit value.
+An application that alerts you via email and/or whatsapp when the stocks prices on your watchlist has either deceeded the MIN threshold or exceeded the MAX limit value.
+
+Note: This is a tweaked version of [stock_monitor](https://github.com/vignesh1793/stock_monitor) which excludes all the unnecessary stuff.
 
 ## Setup
 
