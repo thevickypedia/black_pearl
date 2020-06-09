@@ -19,176 +19,342 @@ print(f'Data as of {dt_string}\n')
 
 
 class StockChecker:
-    def hlx(self):
-        stock = 'HLX'
-        stock_name = 'Helix Energy'
-        global result
-        r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
-        scrapped = bs(r.text, "html.parser")
-        raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
-        price = float(raw_data.find('span').text)
-        price_change = re.findall(r"\d+\.\d+", str(raw_data))
-        threshold = float(os.getenv('HLX_threshold'))
-        maxi = float(os.getenv('HLX_max'))
+    def stock_1(self):
+        if os.getenv('stock_1'):
+            stock = os.getenv('stock_1')
+            global result
+            r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
+            scrapped = bs(r.text, "html.parser")
+            raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
+            price = float(raw_data.find('span').text)
+            price_change = re.findall(r"\d+\.\d+", str(raw_data))
+            threshold = float(os.getenv('stock_1_min'))
+            maxi = float(os.getenv('stock_1_max'))
+            stock_name = scrapped.find_all('div', {
+                'class': 'D(ib) Mt(-5px) Mend(20px) Maw(56%)--tab768 Maw(52%) Ov(h) smartphone_Maw('
+                         '85%) smartphone_Mend(0px)'})[0].text.split(' - ')[1].split(',')[0]
 
-        if 'At close' in str(raw_data):
-            result = 'currently no change. Last change:'
-        elif 'negativeColor' in str(raw_data):
-            result = 'decreased'
-        elif 'positiveColor' in str(raw_data):
-            result = 'increased'
-        msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
+            if 'At close' in str(raw_data):
+                result = 'currently no change. Last change:'
+            elif 'negativeColor' in str(raw_data):
+                result = 'decreased'
+            elif 'positiveColor' in str(raw_data):
+                result = 'increased'
+            msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
 
-        if result == 'currently no change. Last change:':
-            print(f'{stock_name}:\n{msg}\n')
-        elif price < threshold:
-            message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
-            return message
-        elif price > maxi:
-            message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
-            return message_
+            if result == 'currently no change. Last change:':
+                print(f'{stock_name}:\n{msg}\n')
+            elif price < threshold:
+                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                return message
+            elif price > maxi:
+                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                return message_
+        else:
+            return None
 
-    def expe(self):
-        stock = 'EXPE'
-        stock_name = 'Expedia'
-        global result
-        r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
-        scrapped = bs(r.text, "html.parser")
-        raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
-        price = float(raw_data.find('span').text)
-        price_change = re.findall(r"\d+\.\d+", str(raw_data))
-        threshold = float(os.getenv('EXPE_threshold'))
-        maxi = float(os.getenv('EXPE_max'))
+    def stock_2(self):
+        if os.getenv('stock_2'):
+            stock = os.getenv('stock_2')
+            global result
+            r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
+            scrapped = bs(r.text, "html.parser")
+            raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
+            price = float(raw_data.find('span').text)
+            price_change = re.findall(r"\d+\.\d+", str(raw_data))
+            threshold = float(os.getenv('stock_2_min'))
+            maxi = float(os.getenv('stock_2_max'))
+            stock_name = scrapped.find_all('div', {
+                'class': 'D(ib) Mt(-5px) Mend(20px) Maw(56%)--tab768 Maw(52%) Ov(h) smartphone_Maw('
+                         '85%) smartphone_Mend(0px)'})[0].text.split(' - ')[1].split(',')[0]
 
-        if 'At close' in str(raw_data):
-            result = 'currently no change. Last change:'
-        elif 'negativeColor' in str(raw_data):
-            result = 'decreased'
-        elif 'positiveColor' in str(raw_data):
-            result = 'increased'
-        msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
+            if 'At close' in str(raw_data):
+                result = 'currently no change. Last change:'
+            elif 'negativeColor' in str(raw_data):
+                result = 'decreased'
+            elif 'positiveColor' in str(raw_data):
+                result = 'increased'
+            msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
 
-        if result == 'currently no change. Last change:':
-            print(f'{stock_name}:\n{msg}\n')
-        elif price < threshold:
-            message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
-            return message
-        elif price > maxi:
-            message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
-            return message_
+            if result == 'currently no change. Last change:':
+                print(f'{stock_name}:\n{msg}\n')
+            elif price < threshold:
+                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                return message
+            elif price > maxi:
+                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                return message_
+        else:
+            return None
 
-    def ccl(self):
-        stock = 'CCL'
-        stock_name = 'Carnival'
-        global result
-        r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
-        scrapped = bs(r.text, "html.parser")
-        raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
-        price = float(raw_data.find('span').text)
-        price_change = re.findall(r"\d+\.\d+", str(raw_data))
-        threshold = float(os.getenv('CCL_threshold'))
-        maxi = float(os.getenv('CCL_max'))
+    def stock_3(self):
+        if os.getenv('stock_3'):
+            stock = os.getenv('stock_3')
+            global result
+            r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
+            scrapped = bs(r.text, "html.parser")
+            raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
+            price = float(raw_data.find('span').text)
+            price_change = re.findall(r"\d+\.\d+", str(raw_data))
+            threshold = float(os.getenv('stock_3_min'))
+            maxi = float(os.getenv('stock_3_max'))
+            stock_name = scrapped.find_all('div', {
+                'class': 'D(ib) Mt(-5px) Mend(20px) Maw(56%)--tab768 Maw(52%) Ov(h) smartphone_Maw('
+                         '85%) smartphone_Mend(0px)'})[0].text.split(' - ')[1].split(',')[0]
 
-        if 'At close' in str(raw_data):
-            result = 'currently no change. Last change:'
-        elif 'negativeColor' in str(raw_data):
-            result = 'decreased'
-        elif 'positiveColor' in str(raw_data):
-            result = 'increased'
-        msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
+            if 'At close' in str(raw_data):
+                result = 'currently no change. Last change:'
+            elif 'negativeColor' in str(raw_data):
+                result = 'decreased'
+            elif 'positiveColor' in str(raw_data):
+                result = 'increased'
+            msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
 
-        if result == 'currently no change. Last change:':
-            print(f'{stock_name}:\n{msg}\n')
-        elif price < threshold:
-            message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
-            return message
-        elif price > maxi:
-            message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
-            return message_
+            if result == 'currently no change. Last change:':
+                print(f'{stock_name}:\n{msg}\n')
+            elif price < threshold:
+                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                return message
+            elif price > maxi:
+                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                return message_
+        else:
+            return None
 
-    def work(self):
-        stock = 'WORK'
-        stock_name = 'Slack Technologies'
-        global result
-        r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
-        scrapped = bs(r.text, "html.parser")
-        raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
-        price = float(raw_data.find('span').text)
-        price_change = re.findall(r"\d+\.\d+", str(raw_data))
-        threshold = float(os.getenv('WORK_threshold'))
-        maxi = float(os.getenv('WORK_max'))
+    def stock_4(self):
+        if os.getenv('stock_4'):
+            stock = os.getenv('stock_4')
+            global result
+            r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
+            scrapped = bs(r.text, "html.parser")
+            raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
+            price = float(raw_data.find('span').text)
+            price_change = re.findall(r"\d+\.\d+", str(raw_data))
+            threshold = float(os.getenv('stock_4_min'))
+            maxi = float(os.getenv('stock_4_max'))
+            stock_name = scrapped.find_all('div', {
+                'class': 'D(ib) Mt(-5px) Mend(20px) Maw(56%)--tab768 Maw(52%) Ov(h) smartphone_Maw('
+                         '85%) smartphone_Mend(0px)'})[0].text.split(' - ')[1].split(',')[0]
 
-        if 'At close' in str(raw_data):
-            result = 'currently no change. Last change:'
-        elif 'negativeColor' in str(raw_data):
-            result = 'decreased'
-        elif 'positiveColor' in str(raw_data):
-            result = 'increased'
-        msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
+            if 'At close' in str(raw_data):
+                result = 'currently no change. Last change:'
+            elif 'negativeColor' in str(raw_data):
+                result = 'decreased'
+            elif 'positiveColor' in str(raw_data):
+                result = 'increased'
+            msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
 
-        if result == 'currently no change. Last change:':
-            print(f'{stock_name}:\n{msg}\n')
-        elif price < threshold:
-            message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
-            return message
-        elif price > maxi:
-            message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
-            return message_
+            if result == 'currently no change. Last change:':
+                print(f'{stock_name}:\n{msg}\n')
+            elif price < threshold:
+                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                return message
+            elif price > maxi:
+                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                return message_
+        else:
+            return None
 
-    def h(self):
-        stock = 'H'
-        stock_name = 'Hyatt Hotels'
-        global result
-        r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
-        scrapped = bs(r.text, "html.parser")
-        raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
-        price = float(raw_data.find('span').text)
-        price_change = re.findall(r"\d+\.\d+", str(raw_data))
-        threshold = float(os.getenv('H_threshold'))
-        maxi = float(os.getenv('H_max'))
+    def stock_5(self):
+        if os.getenv('stock_5'):
+            stock = os.getenv('stock_5')
+            global result
+            r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
+            scrapped = bs(r.text, "html.parser")
+            raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
+            price = float(raw_data.find('span').text)
+            price_change = re.findall(r"\d+\.\d+", str(raw_data))
+            threshold = float(os.getenv('stock_5_min'))
+            maxi = float(os.getenv('stock_5_max'))
+            stock_name = scrapped.find_all('div', {
+                'class': 'D(ib) Mt(-5px) Mend(20px) Maw(56%)--tab768 Maw(52%) Ov(h) smartphone_Maw('
+                         '85%) smartphone_Mend(0px)'})[0].text.split(' - ')[1].split(',')[0]
 
-        if 'At close' in str(raw_data):
-            result = 'currently no change. Last change:'
-        elif 'negativeColor' in str(raw_data):
-            result = 'decreased'
-        elif 'positiveColor' in str(raw_data):
-            result = 'increased'
-        msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
+            if 'At close' in str(raw_data):
+                result = 'currently no change. Last change:'
+            elif 'negativeColor' in str(raw_data):
+                result = 'decreased'
+            elif 'positiveColor' in str(raw_data):
+                result = 'increased'
+            msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
 
-        if result == 'currently no change. Last change:':
-            print(f'{stock_name}:\n{msg}\n')
-        elif price < threshold:
-            message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
-            return message
-        elif price > maxi:
-            message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
-            return message_
+            if result == 'currently no change. Last change:':
+                print(f'{stock_name}:\n{msg}\n')
+            elif price < threshold:
+                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                return message
+            elif price > maxi:
+                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                return message_
+        else:
+            return None
 
-    def xom(self):
-        stock = 'XOM'
-        stock_name = 'Exxon Mobil'
-        global result
-        r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
-        scrapped = bs(r.text, "html.parser")
-        raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
-        price = float(raw_data.find('span').text)
-        price_change = re.findall(r"\d+\.\d+", str(raw_data))
-        threshold = float(os.getenv('XOM_threshold'))
-        maxi = float(os.getenv('XOM_max'))
+    def stock_6(self):
+        if os.getenv('stock_6'):
+            stock = os.getenv('stock_6')
+            global result
+            r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
+            scrapped = bs(r.text, "html.parser")
+            raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
+            price = float(raw_data.find('span').text)
+            price_change = re.findall(r"\d+\.\d+", str(raw_data))
+            threshold = float(os.getenv('stock_6_min'))
+            maxi = float(os.getenv('stock_6_max'))
+            stock_name = scrapped.find_all('div', {
+                'class': 'D(ib) Mt(-5px) Mend(20px) Maw(56%)--tab768 Maw(52%) Ov(h) smartphone_Maw('
+                         '85%) smartphone_Mend(0px)'})[0].text.split(' - ')[1].split(',')[0]
 
-        if 'At close' in str(raw_data):
-            result = 'currently no change. Last change:'
-        elif 'negativeColor' in str(raw_data):
-            result = 'decreased'
-        elif 'positiveColor' in str(raw_data):
-            result = 'increased'
-        msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
+            if 'At close' in str(raw_data):
+                result = 'currently no change. Last change:'
+            elif 'negativeColor' in str(raw_data):
+                result = 'decreased'
+            elif 'positiveColor' in str(raw_data):
+                result = 'increased'
+            msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
 
-        if result == 'currently no change. Last change:':
-            print(f'{stock_name}:\n{msg}\n')
-        elif price < threshold:
-            message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
-            return message
-        elif price > maxi:
-            message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
-            return message_
+            if result == 'currently no change. Last change:':
+                print(f'{stock_name}:\n{msg}\n')
+            elif price < threshold:
+                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                return message
+            elif price > maxi:
+                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                return message_
+        else:
+            return None
+
+    def stock_7(self):
+        if os.getenv('stock_7'):
+            stock = os.getenv('stock_7')
+            global result
+            r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
+            scrapped = bs(r.text, "html.parser")
+            raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
+            price = float(raw_data.find('span').text)
+            price_change = re.findall(r"\d+\.\d+", str(raw_data))
+            threshold = float(os.getenv('stock_7_min'))
+            maxi = float(os.getenv('stock_7_max'))
+            stock_name = scrapped.find_all('div', {
+                'class': 'D(ib) Mt(-5px) Mend(20px) Maw(56%)--tab768 Maw(52%) Ov(h) smartphone_Maw('
+                         '85%) smartphone_Mend(0px)'})[0].text.split(' - ')[1].split(',')[0]
+
+            if 'At close' in str(raw_data):
+                result = 'currently no change. Last change:'
+            elif 'negativeColor' in str(raw_data):
+                result = 'decreased'
+            elif 'positiveColor' in str(raw_data):
+                result = 'increased'
+            msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
+
+            if result == 'currently no change. Last change:':
+                print(f'{stock_name}:\n{msg}\n')
+            elif price < threshold:
+                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                return message
+            elif price > maxi:
+                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                return message_
+        else:
+            return None
+
+    def stock_8(self):
+        if os.getenv('stock_8'):
+            stock = os.getenv('stock_8')
+            global result
+            r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
+            scrapped = bs(r.text, "html.parser")
+            raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
+            price = float(raw_data.find('span').text)
+            price_change = re.findall(r"\d+\.\d+", str(raw_data))
+            threshold = float(os.getenv('stock_8_min'))
+            maxi = float(os.getenv('stock_8_max'))
+            stock_name = scrapped.find_all('div', {
+                'class': 'D(ib) Mt(-5px) Mend(20px) Maw(56%)--tab768 Maw(52%) Ov(h) smartphone_Maw('
+                         '85%) smartphone_Mend(0px)'})[0].text.split(' - ')[1].split(',')[0]
+
+            if 'At close' in str(raw_data):
+                result = 'currently no change. Last change:'
+            elif 'negativeColor' in str(raw_data):
+                result = 'decreased'
+            elif 'positiveColor' in str(raw_data):
+                result = 'increased'
+            msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
+
+            if result == 'currently no change. Last change:':
+                print(f'{stock_name}:\n{msg}\n')
+            elif price < threshold:
+                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                return message
+            elif price > maxi:
+                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                return message_
+        else:
+            return None
+
+    def stock_9(self):
+        if os.getenv('stock_9'):
+            stock = os.getenv('stock_9')
+            global result
+            r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
+            scrapped = bs(r.text, "html.parser")
+            raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
+            price = float(raw_data.find('span').text)
+            price_change = re.findall(r"\d+\.\d+", str(raw_data))
+            threshold = float(os.getenv('stock_9_min'))
+            maxi = float(os.getenv('stock_9_max'))
+            stock_name = scrapped.find_all('div', {
+                'class': 'D(ib) Mt(-5px) Mend(20px) Maw(56%)--tab768 Maw(52%) Ov(h) smartphone_Maw('
+                         '85%) smartphone_Mend(0px)'})[0].text.split(' - ')[1].split(',')[0]
+
+            if 'At close' in str(raw_data):
+                result = 'currently no change. Last change:'
+            elif 'negativeColor' in str(raw_data):
+                result = 'decreased'
+            elif 'positiveColor' in str(raw_data):
+                result = 'increased'
+            msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
+
+            if result == 'currently no change. Last change:':
+                print(f'{stock_name}:\n{msg}\n')
+            elif price < threshold:
+                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                return message
+            elif price > maxi:
+                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                return message_
+        else:
+            return None
+
+    def stock_10(self):
+        if os.getenv('stock_10'):
+            stock = os.getenv('stock_10')
+            global result
+            r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
+            scrapped = bs(r.text, "html.parser")
+            raw_data = scrapped.find_all('div', {'class': 'My(6px) Pos(r) smartphone_Mt(6px)'})[0]
+            price = float(raw_data.find('span').text)
+            price_change = re.findall(r"\d+\.\d+", str(raw_data))
+            threshold = float(os.getenv('stock_10_min'))
+            maxi = float(os.getenv('stock_10_max'))
+            stock_name = scrapped.find_all('div', {
+                'class': 'D(ib) Mt(-5px) Mend(20px) Maw(56%)--tab768 Maw(52%) Ov(h) smartphone_Maw('
+                         '85%) smartphone_Mend(0px)'})[0].text.split(' - ')[1].split(',')[0]
+
+            if 'At close' in str(raw_data):
+                result = 'currently no change. Last change:'
+            elif 'negativeColor' in str(raw_data):
+                result = 'decreased'
+            elif 'positiveColor' in str(raw_data):
+                result = 'increased'
+            msg = f"The current price of {stock} is: ${price}\n{stock} share has {result} ${price_change[-2]}"
+
+            if result == 'currently no change. Last change:':
+                print(f'{stock_name}:\n{msg}\n')
+            elif price < threshold:
+                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                return message
+            elif price > maxi:
+                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                return message_
+        else:
+            return None

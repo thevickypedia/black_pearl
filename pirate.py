@@ -15,39 +15,39 @@ from lib.watcher import dt_string
 
 
 def email_formatter():
-    HLX_info = StockChecker().hlx()
-    EXPE_info = StockChecker().expe()
-    CCL_info = StockChecker().ccl()
-    WORK_info = StockChecker().work()
-    H_info = StockChecker().h()
-    XOM_info = StockChecker().xom()
+    stock_1_info = StockChecker().stock_1()
+    stock_2_info = StockChecker().stock_2()
+    stock_3_info = StockChecker().stock_3()
+    stock_4_info = StockChecker().stock_4()
+    stock_5_info = StockChecker().stock_5()
+    stock_6_info = StockChecker().stock_6()
 
-    if HLX_info or EXPE_info or CCL_info or WORK_info or H_info:
+    if stock_1_info or stock_2_info or stock_3_info or stock_4_info or stock_5_info:
         email_text = 'Watchlist Notification\n'
 
-        if HLX_info:
+        if stock_1_info:
             email_text += '\nHelix Energy Report:\n'
-            email_text += HLX_info
+            email_text += stock_1_info
 
-        if EXPE_info:
+        if stock_2_info:
             email_text += '\nExpedia Report:\n'
-            email_text += EXPE_info
+            email_text += stock_2_info
 
-        if CCL_info:
+        if stock_3_info:
             email_text += '\nCarnival Report:\n'
-            email_text += CCL_info
+            email_text += stock_3_info
 
-        if WORK_info:
+        if stock_4_info:
             email_text += '\nSlack Report:\n'
-            email_text += WORK_info
+            email_text += stock_4_info
 
-        if H_info:
+        if stock_5_info:
             email_text += '\nHyatt Report:\n'
-            email_text += H_info
+            email_text += stock_5_info
 
-        if XOM_info:
+        if stock_6_info:
             email_text += '\nExxon Report:\n'
-            email_text += H_info
+            email_text += stock_5_info
 
         return email_text
     else:
