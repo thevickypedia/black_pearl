@@ -12,11 +12,6 @@ import requests
 from bs4 import BeautifulSoup as bs
 from datetime import datetime, timedelta
 
-current_time = datetime.now()
-utc_to_cdt = current_time - timedelta(hours=5)
-dt_string = utc_to_cdt.strftime("%A, %B %d, %Y %I:%M %p")
-print(f'Data as of {dt_string}\n')
-
 
 class StockChecker:
     def stock_1(self):
@@ -45,10 +40,10 @@ class StockChecker:
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
             elif price < threshold:
-                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
-                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
         else:
             return None
@@ -78,11 +73,13 @@ class StockChecker:
 
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
+                return message
             elif price < threshold:
-                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
-                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
         else:
             return None
@@ -113,10 +110,10 @@ class StockChecker:
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
             elif price < threshold:
-                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
-                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
         else:
             return None
@@ -147,10 +144,10 @@ class StockChecker:
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
             elif price < threshold:
-                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
-                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
         else:
             return None
@@ -181,10 +178,10 @@ class StockChecker:
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
             elif price < threshold:
-                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
-                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
         else:
             return None
@@ -215,10 +212,10 @@ class StockChecker:
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
             elif price < threshold:
-                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
-                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
         else:
             return None
@@ -249,10 +246,10 @@ class StockChecker:
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
             elif price < threshold:
-                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
-                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
         else:
             return None
@@ -283,10 +280,10 @@ class StockChecker:
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
             elif price < threshold:
-                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
-                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
         else:
             return None
@@ -317,10 +314,10 @@ class StockChecker:
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
             elif price < threshold:
-                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
-                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
         else:
             return None
@@ -351,10 +348,10 @@ class StockChecker:
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
             elif price < threshold:
-                message = f'Data as of {dt_string}:\n\n{stock_name} is currently less than ${threshold}.\n{msg}\n'
+                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
-                message_ = f'Data as of {dt_string}:\n\n{stock_name} is currently more than ${maxi}.\n{msg}\n'
+                message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
         else:
             return None
