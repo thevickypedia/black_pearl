@@ -68,11 +68,11 @@ def email_formatter():
         return email_text
     else:
         print('Nothing to notify, bye..')
-        return None
 
 
 def send_email():
-    if email_formatter():
+    email_check = email_formatter()
+    if email_check:
         sender_env = os.getenv('SENDER')
         recipient_env = os.getenv('RECIPIENT')
         git = 'https://github.com/thevickypedia/black_pearl'
@@ -86,16 +86,15 @@ def send_email():
         sender = f'Black Pearl <{sender_env}>'
         recipient = [f'{recipient_env}']
         title = f'Black Pearl Alert as of {dt_string}'
-        text = f'{email_formatter()}\n\nNavigate to check logs: {logs}\n\n{footer_text}'
-        email = Emailer(sender, recipient, title, text)
-        return email
-    else:
-        return None
+        text = f'{email_check}\n\nNavigate to check logs: {logs}\n\n{footer_text}'
+        Emailer(sender, recipient, title, text)
+        return email_check
 
 
 # two arguments for the below functions as lambda passes event, context by default
 def send_whatsapp(data, context):
-    if send_email():
+    checker = send_email()
+    if checker:
         sid = os.getenv('SID')
         token = os.getenv('TOKEN')
         sender = f"whatsapp:{os.getenv('SEND')}"
@@ -103,11 +102,9 @@ def send_whatsapp(data, context):
         client = Client(sid, token)
         from_number = sender
         to_number = receiver
-        client.messages.create(body=f'Black Pearl Alert\n\n{email_formatter()}',
+        client.messages.create(body=checker,
                                from_=from_number,
                                to=to_number)
-    else:
-        return None
 
 
 if __name__ == '__main__':
