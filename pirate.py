@@ -11,7 +11,12 @@ from twilio.rest import Client
 
 from lib.emailer import Emailer
 from lib.watcher import StockChecker
-from lib.watcher import dt_string
+from datetime import datetime, timedelta
+
+current_time = datetime.now()
+utc_to_cdt = current_time - timedelta(hours=5)
+dt_string = utc_to_cdt.strftime("%A, %B %d, %Y %I:%M %p")
+print(f'Data as of {dt_string}\n')
 
 
 def email_formatter():
@@ -21,33 +26,31 @@ def email_formatter():
     stock_4_info = StockChecker().stock_4()
     stock_5_info = StockChecker().stock_5()
     stock_6_info = StockChecker().stock_6()
+    stock_7_info = StockChecker().stock_7()
+    stock_8_info = StockChecker().stock_8()
+    stock_9_info = StockChecker().stock_9()
+    stock_10_info = StockChecker().stock_10()
 
     if stock_1_info or stock_2_info or stock_3_info or stock_4_info or stock_5_info:
-        email_text = 'Watchlist Notification\n'
+        email_text = f'Watchlist Notification\n\n'
 
         if stock_1_info:
-            email_text += '\nHelix Energy Report:\n'
             email_text += stock_1_info
 
         if stock_2_info:
-            email_text += '\nExpedia Report:\n'
             email_text += stock_2_info
 
         if stock_3_info:
-            email_text += '\nCarnival Report:\n'
             email_text += stock_3_info
 
         if stock_4_info:
-            email_text += '\nSlack Report:\n'
             email_text += stock_4_info
 
         if stock_5_info:
-            email_text += '\nHyatt Report:\n'
             email_text += stock_5_info
 
         if stock_6_info:
-            email_text += '\nExxon Report:\n'
-            email_text += stock_5_info
+            email_text += stock_6_info
 
         return email_text
     else:
