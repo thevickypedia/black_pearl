@@ -10,7 +10,6 @@ import re
 
 import requests
 from bs4 import BeautifulSoup as bs
-from datetime import datetime, timedelta
 
 
 class StockChecker:
