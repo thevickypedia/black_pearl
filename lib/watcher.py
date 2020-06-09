@@ -44,8 +44,6 @@ class StockChecker:
             elif price > maxi:
                 message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
-        else:
-            return None
 
     def stock_2(self):
         if os.getenv('stock_2'):
@@ -72,16 +70,12 @@ class StockChecker:
 
             if result == 'currently no change. Last change:':
                 print(f'{stock_name}:\n{msg}\n')
-                message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
-                return message
             elif price < threshold:
                 message = f'{stock_name} is currently less than ${threshold}.\n\n{msg}\n'
                 return message
             elif price > maxi:
                 message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
-        else:
-            return None
 
     def stock_3(self):
         if os.getenv('stock_3'):
@@ -114,8 +108,6 @@ class StockChecker:
             elif price > maxi:
                 message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
-        else:
-            return None
 
     def stock_4(self):
         if os.getenv('stock_4'):
@@ -148,8 +140,6 @@ class StockChecker:
             elif price > maxi:
                 message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
-        else:
-            return None
 
     def stock_5(self):
         if os.getenv('stock_5'):
@@ -182,8 +172,6 @@ class StockChecker:
             elif price > maxi:
                 message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
-        else:
-            return None
 
     def stock_6(self):
         if os.getenv('stock_6'):
@@ -216,8 +204,6 @@ class StockChecker:
             elif price > maxi:
                 message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
-        else:
-            return None
 
     def stock_7(self):
         if os.getenv('stock_7'):
@@ -250,8 +236,6 @@ class StockChecker:
             elif price > maxi:
                 message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
-        else:
-            return None
 
     def stock_8(self):
         if os.getenv('stock_8'):
@@ -284,8 +268,6 @@ class StockChecker:
             elif price > maxi:
                 message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
-        else:
-            return None
 
     def stock_9(self):
         if os.getenv('stock_9'):
@@ -318,8 +300,6 @@ class StockChecker:
             elif price > maxi:
                 message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
-        else:
-            return None
 
     def stock_10(self):
         if os.getenv('stock_10'):
@@ -352,5 +332,3 @@ class StockChecker:
             elif price > maxi:
                 message_ = f'{stock_name} is currently more than ${maxi}.\n\n{msg}\n'
                 return message_
-        else:
-            return None

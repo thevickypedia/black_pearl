@@ -1,7 +1,7 @@
 # Black Pearl
 An application that alerts you via email and/or whatsapp when the stocks prices on your watchlist has either deceeded the MIN threshold or exceeded the MAX limit value.
 
-Note: This is a tweaked version of [stock_monitor](https://github.com/vignesh1793/stock_monitor) which excludes all the unnecessary stuff.
+Note: This is a tweaked version of [stock_monitor](https://github.com/thevickypedia/stock_monitor) which excludes all the unnecessary stuff.
 
 ## Setup
 
@@ -39,5 +39,5 @@ Option 3:
   * Install a docker and set the entry point to stock_monitor.py
 
 Click [here](https://www.twilio.com/docs/whatsapp/quickstart/python) to get started with Twilio or refer [twilio](https://pypi.org/project/twilio/) docs for quick start.<br/>
-If you prefer not to use whats app notifications then simply change send_whatsapp() to send_email() in [stock_monitor.py](https://github.com/vignesh1793/stock_monitor/blob/master/stock_monitor.py#L92) and add arguments 'data, context'<br/>
-By doing this the [send_whatsapp()](https://github.com/vignesh1793/black_pearl/blob/master/pirate.py#L99) function will never be called.
+If you prefer not to use whats app notifications then simply change send_whatsapp() to send_email() in [stock_monitor.py](https://github.com/thevickypedia/stock_monitor/blob/master/stock_monitor.py#L92) and add arguments 'data, context'<br/>
+By doing this the [send_whatsapp()](https://github.com/thevickypedia/black_pearl/blob/master/pirate.py#L99) function will never be called.

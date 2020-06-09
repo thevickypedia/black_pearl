@@ -31,7 +31,8 @@ def email_formatter():
     stock_9_info = StockChecker().stock_9()
     stock_10_info = StockChecker().stock_10()
 
-    if stock_1_info or stock_2_info or stock_3_info or stock_4_info or stock_5_info:
+    if stock_1_info or stock_2_info or stock_3_info or stock_4_info or stock_5_info or stock_6_info or stock_7_info or \
+            stock_8_info or stock_9_info or stock_10_info:
         email_text = f'Watchlist Notification\n\n'
 
         if stock_1_info:
@@ -52,6 +53,18 @@ def email_formatter():
         if stock_6_info:
             email_text += stock_6_info
 
+        if stock_7_info:
+            email_text += stock_7_info
+
+        if stock_8_info:
+            email_text += stock_8_info
+
+        if stock_9_info:
+            email_text += stock_9_info
+
+        if stock_10_info:
+            email_text += stock_10_info
+
         return email_text
     else:
         print('Nothing to notify, bye..')
@@ -62,7 +75,8 @@ def send_email():
     if email_formatter():
         sender_env = os.getenv('SENDER')
         recipient_env = os.getenv('RECIPIENT')
-        git = 'https://github.com/vignesh1793/black_pearl'
+        git = 'https://github.com/thevickypedia/black_pearl'
+        logs = 'https://us-west-2.console.aws.amazon.com/cloudwatch/home#logStream:group=/aws/lambda/black_pearl'
         footer_text = "\n----------------------------------------------------------------" \
                       "----------------------------------------\n" \
                       "A report on the list shares on your watchlist that has either deceeded the MIN threshold or " \
@@ -72,7 +86,7 @@ def send_email():
         sender = f'Black Pearl <{sender_env}>'
         recipient = [f'{recipient_env}']
         title = f'Black Pearl Alert as of {dt_string}'
-        text = f'{email_formatter()}\n\nNavigate to check logs: \n\n{footer_text}'
+        text = f'{email_formatter()}\n\nNavigate to check logs: {logs}\n\n{footer_text}'
         email = Emailer(sender, recipient, title, text)
         return email
     else:
