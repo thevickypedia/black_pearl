@@ -1,18 +1,22 @@
 #! /usr/bin/env python3
-import os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 import boto3
+
+from lib.aws_client import AWSClients
+
+acc_key = AWSClients().access_key()
+secret_key = AWSClients().secret_key()
 
 
 class Emailer:
     def __init__(self, sender: str, recipients: list, title: str, text: str):
         boto3_ses_client = boto3.Session(
             # vig
-            aws_access_key_id=os.getenv('ACCESS_KEY'),
-            aws_secret_access_key=os.getenv('SECRET_KEY'),
-        ).client('ses', region_name=os.getenv('REGION'))
+            aws_access_key_id=acc_key,
+            aws_secret_access_key=secret_key
+        ).client('ses', region_name='us-west-2')
 
         response_ = self.send_mail(boto3_ses_client, sender, recipients, title, text)
         print(response_)

@@ -5,13 +5,13 @@
  *
  **/"""
 
-import os
+from datetime import datetime, timedelta
 
 from twilio.rest import Client
 
+from lib.aws_client import AWSClients
 from lib.emailer import Emailer
 from lib.watcher import StockChecker
-from datetime import datetime, timedelta
 
 current_time = datetime.now()
 utc_to_cdt = current_time - timedelta(hours=5)
@@ -135,8 +135,8 @@ def email_formatter():
 def send_email():
     email_check = email_formatter()
     if email_check:
-        sender_env = os.getenv('SENDER')
-        recipient_env = os.getenv('RECIPIENT')
+        sender_env = AWSClients().sender()
+        recipient_env = AWSClients().recipient()
         git = 'https://github.com/thevickypedia/black_pearl'
         logs = 'https://us-west-2.console.aws.amazon.com/cloudwatch/home#logStream:group=/aws/lambda/black_pearl'
         footer_text = "\n----------------------------------------------------------------" \
@@ -157,10 +157,12 @@ def send_email():
 def send_whatsapp(data, context):
     checker = send_email()
     if checker:
-        sid = os.getenv('SID')
-        token = os.getenv('TOKEN')
-        sender = f"whatsapp:{os.getenv('SEND')}"
-        receiver = f"whatsapp:{os.getenv('RECEIVE')}"
+        whatsapp_send = AWSClients().send()
+        whatsapp_receive = AWSClients().receive()
+        sid = AWSClients().sid()
+        token = AWSClients().token()
+        sender = f"whatsapp:{whatsapp_send}"
+        receiver = f"whatsapp:{whatsapp_receive}"
         client = Client(sid, token)
         from_number = sender
         to_number = receiver
