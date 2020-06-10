@@ -5,7 +5,7 @@ Note: This is a tweaked version of [stock_monitor](https://github.com/thevickype
 
 ## Setup
 
-1. git clone this repository
+1. git clone this repository and alter the code to use local env instead of aws client (refer previous commits to look at the changes made)
 
 2. Run this command in your terminal to install necessary packages<br/>cd stock_monitor/lib && pip3 install -r requirements.txt
 
