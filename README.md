@@ -1,7 +1,7 @@
 # Black Pearl
 An application that alerts you via email and/or whatsapp when the stocks prices on your watchlist has either deceeded the MIN threshold or exceeded the MAX limit value.
 
-Note: This is a tweaked version of [stock_monitor](https://github.com/thevickypedia/stock_monitor) which excludes all the unnecessary stuff.
+Note: This is a tweaked version of the [stock_monitor](https://github.com/thevickypedia/yahoo_finance_monitor) application.
 
 ## Setup
 
@@ -29,6 +29,7 @@ Note: This is a tweaked version of [stock_monitor](https://github.com/thevickype
 ## Usage
 
 * Check the AWS lambda setup [here](https://github.com/thevickypedia/stock_hawk_AWS_lambda/blob/master/README.md#setup)
+* To run local replace the AWSClients().* part to local env variables (os.getenv()) in [pirate.py](https://github.com/thevickypedia/black_pearl/blob/master/pirate.py#L138-L139) and [emailer.py](https://github.com/thevickypedia/black_pearl/blob/master/lib/emailer.py#L9-L10)
 
 <Option 1:
   * Download an IDE such as [pycharm](https://www.jetbrains.com/pycharm/download/download-thanks.html).
