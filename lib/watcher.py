@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup as bs
 
 class StockChecker:
     def stock_1(self):
-        if os.getenv('stock_1'):
+        if os.getenv('stock_1') and os.getenv('stock_1_max') and os.getenv('stock_1_min'):
             stock = os.getenv('stock_1')
             global result
             r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
@@ -46,7 +46,7 @@ class StockChecker:
                 return message_
 
     def stock_2(self):
-        if os.getenv('stock_2'):
+        if os.getenv('stock_2') and os.getenv('stock_2_max') and os.getenv('stock_2_min'):
             stock = os.getenv('stock_2')
             global result
             r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
@@ -78,7 +78,7 @@ class StockChecker:
                 return message_
 
     def stock_3(self):
-        if os.getenv('stock_3'):
+        if os.getenv('stock_3') and os.getenv('stock_3_max') and os.getenv('stock_3_min'):
             stock = os.getenv('stock_3')
             global result
             r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
@@ -110,7 +110,7 @@ class StockChecker:
                 return message_
 
     def stock_4(self):
-        if os.getenv('stock_4'):
+        if os.getenv('stock_4') and os.getenv('stock_4_max') and os.getenv('stock_4_min'):
             stock = os.getenv('stock_4')
             global result
             r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
@@ -142,7 +142,7 @@ class StockChecker:
                 return message_
 
     def stock_5(self):
-        if os.getenv('stock_5'):
+        if os.getenv('stock_5') and os.getenv('stock_5_max') and os.getenv('stock_5_min'):
             stock = os.getenv('stock_5')
             global result
             r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
@@ -174,7 +174,7 @@ class StockChecker:
                 return message_
 
     def stock_6(self):
-        if os.getenv('stock_6'):
+        if os.getenv('stock_6') and os.getenv('stock_6_max') and os.getenv('stock_6_min'):
             stock = os.getenv('stock_6')
             global result
             r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
@@ -206,7 +206,7 @@ class StockChecker:
                 return message_
 
     def stock_7(self):
-        if os.getenv('stock_7'):
+        if os.getenv('stock_7') and os.getenv('stock_7_max') and os.getenv('stock_7_min'):
             stock = os.getenv('stock_7')
             global result
             r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
@@ -238,7 +238,7 @@ class StockChecker:
                 return message_
 
     def stock_8(self):
-        if os.getenv('stock_8'):
+        if os.getenv('stock_8') and os.getenv('stock_8_max') and os.getenv('stock_8_min'):
             stock = os.getenv('stock_8')
             global result
             r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
@@ -270,7 +270,7 @@ class StockChecker:
                 return message_
 
     def stock_9(self):
-        if os.getenv('stock_9'):
+        if os.getenv('stock_9') and os.getenv('stock_9_max') and os.getenv('stock_9_min'):
             stock = os.getenv('stock_9')
             global result
             r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
@@ -302,7 +302,7 @@ class StockChecker:
                 return message_
 
     def stock_10(self):
-        if os.getenv('stock_10'):
+        if os.getenv('stock_10') and os.getenv('stock_10_max') and os.getenv('stock_10_min'):
             stock = os.getenv('stock_10')
             global result
             r = requests.get(f'https://finance.yahoo.com/quote/{stock}')
