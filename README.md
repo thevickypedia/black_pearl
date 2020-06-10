@@ -9,7 +9,7 @@ Note: This is a tweaked version of [stock_monitor](https://github.com/thevickype
 
 2. Run this command in your terminal to install necessary packages<br/>cd stock_monitor/lib && pip3 install -r requirements.txt
 
-2. Make sure you add the following env variables
+2. Make sure you add the following env variables (AWS: key value pairs in your ssm parameter store)
 * ACCESS_KEY - AWS access key id
 * SECRET_KEY - AWS secret access key
 * SENDER - sender email address (verified via AWS SES)
