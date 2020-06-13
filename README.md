@@ -1,7 +1,7 @@
 # Black Pearl
 An application that alerts you via email and/or whatsapp when the stocks prices on your watchlist has either deceeded the MIN threshold or exceeded the MAX limit value.
 
-Note: This is a tweaked version of the [stock_monitor](https://github.com/thevickypedia/yahoo_finance_monitor) application.
+Note: This is a AWS version of the [stock_monitor](https://github.com/thevickypedia/stock_monitor) application.
 
 ## Setup
 
