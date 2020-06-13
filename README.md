@@ -28,7 +28,7 @@ Note: This is a tweaked version of the [stock_monitor](https://github.com/thevic
 
 ## Usage
 
-* Check the AWS lambda setup [here](https://github.com/thevickypedia/stock_hawk_AWS_lambda/blob/master/README.md#setup)
+* Check the AWS lambda setup [here](https://github.com/thevickypedia/stock_hawk/blob/master/README.md#setup)
 * To run local replace the AWSClients().* part to local env variables (os.getenv()) in [pirate.py](https://github.com/thevickypedia/black_pearl/blob/master/pirate.py#L138-L139) and [emailer.py](https://github.com/thevickypedia/black_pearl/blob/master/lib/emailer.py#L9-L10)
 <br><br>
 <Option 1:
