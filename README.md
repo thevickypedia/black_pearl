@@ -49,6 +49,6 @@ By doing this the [send_whatsapp()](https://github.com/thevickypedia/black_pearl
 
 ## License & copyright
 
-&copy; Vignesh Sivanandha Rao, Robinhood Monitor
+&copy; Vignesh Sivanandha Rao, Black Pearl
 
 Licensed under the [MIT License](LICENSE)
