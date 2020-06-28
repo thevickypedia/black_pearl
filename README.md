@@ -46,3 +46,9 @@ Note: This is a AWS version of the [stock_monitor](https://github.com/thevickype
 Click [here](https://www.twilio.com/docs/whatsapp/quickstart/python) to get started with Twilio or refer [twilio](https://pypi.org/project/twilio/) docs for quick start.<br/>
 If you prefer not to use whats app notifications then simply change send_whatsapp() to send_email() in [stock_monitor.py](https://github.com/thevickypedia/stock_monitor/blob/master/stock_monitor.py#L92) and add arguments 'data, context'<br/>
 By doing this the [send_whatsapp()](https://github.com/thevickypedia/black_pearl/blob/master/pirate.py#L99) function will never be called.
+
+## License & copyright
+
+&copy; Vignesh Sivanandha Rao, Robinhood Monitor
+
+Licensed under the [MIT License](LICENSE)
