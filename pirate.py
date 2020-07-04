@@ -5,21 +5,32 @@
  *
  **/"""
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
-from twilio.rest import Client
+import requests
 
 from lib.aws_client import AWSClients
-from lib.emailer import Emailer
-from lib.watcher import StockChecker
 
 current_time = datetime.now()
 utc_to_cdt = current_time - timedelta(hours=5)
 dt_string = utc_to_cdt.strftime("%A, %B %d, %Y %I:%M %p")
-print(f'Data as of {dt_string}\n')
+
+logs = 'https://us-west-2.console.aws.amazon.com/cloudwatch/home#logStream:group=/aws/lambda/black_pearl'
+
+
+def market_status():
+    url = requests.get('https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
+    today = date.today().strftime("%B %-d, %Y")
+    if today in url.text:
+        # doesn't return anything which exits the code
+        print(f'{today}: The markets are closed today.')
+    else:
+        # you can return any random value but it should return something
+        return True
 
 
 def email_formatter():
+    from lib.watcher import StockChecker
     stock_1_info = StockChecker().stock_1()
     stock_2_info = StockChecker().stock_2()
     stock_3_info = StockChecker().stock_3()
@@ -133,12 +144,12 @@ def email_formatter():
 
 
 def send_email():
-    email_check = email_formatter()
-    if email_check:
+    email_data = email_formatter()
+    if email_data:
+        from lib.emailer import Emailer
         sender_env = AWSClients().sender()
         recipient_env = AWSClients().recipient()
         git = 'https://github.com/thevickypedia/black_pearl'
-        logs = 'https://us-west-2.console.aws.amazon.com/cloudwatch/home#logStream:group=/aws/lambda/black_pearl'
         footer_text = "\n----------------------------------------------------------------" \
                       "----------------------------------------\n" \
                       "A report on the list shares on your watchlist that has either deceeded the MIN threshold or " \
@@ -148,27 +159,27 @@ def send_email():
         sender = f'Black Pearl <{sender_env}>'
         recipient = [f'{recipient_env}']
         title = f'Black Pearl Alert as of {dt_string}'
-        text = f'{email_check}\n\nNavigate to check logs: {logs}\n\n{footer_text}'
+        text = f'{email_data}\n\nNavigate to check logs: {logs}\n\n{footer_text}'
         Emailer(sender, recipient, title, text)
-        return email_check
+        return email_data
 
 
 # two arguments for the below functions as lambda passes event, context by default
 def send_whatsapp(data, context):
-    checker = send_email()
-    if checker:
-        whatsapp_send = AWSClients().send()
-        whatsapp_receive = AWSClients().receive()
-        sid = AWSClients().sid()
-        token = AWSClients().token()
-        sender = f"whatsapp:{whatsapp_send}"
-        receiver = f"whatsapp:{whatsapp_receive}"
-        client = Client(sid, token)
-        from_number = sender
-        to_number = receiver
-        client.messages.create(body=checker,
-                               from_=from_number,
-                               to=to_number)
+    if market_status():
+        whatsapp_msg = send_email()
+        if whatsapp_msg:
+            from twilio.rest import Client
+            whatsapp_send = AWSClients().send()
+            whatsapp_receive = AWSClients().receive()
+            sid = AWSClients().sid()
+            token = AWSClients().token()
+            from_number = f"whatsapp:{whatsapp_send}"
+            to_number = f"whatsapp:{whatsapp_receive}"
+            client = Client(sid, token)
+            client.messages.create(body=f'{dt_string}\n\n{whatsapp_msg}Log info here\n{logs}',
+                                   from_=from_number,
+                                   to=to_number)
 
 
 if __name__ == '__main__':
