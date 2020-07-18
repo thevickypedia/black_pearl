@@ -20,7 +20,7 @@ logs = 'https://us-west-2.console.aws.amazon.com/cloudwatch/home#logStream:group
 
 def market_status():
     url = requests.get('https://www.nasdaqtrader.com/trader.aspx?id=Calendar')
-    today = date.today().strftime("%B %-d, %Y")
+    today = date.today().strftime("%B %d, %Y")
     if today in url.text:
         # doesn't return anything which exits the code
         print(f'{today}: The markets are closed today.')
@@ -57,87 +57,85 @@ def email_formatter():
     stock_24_info = StockChecker().stock_24()
     stock_25_info = StockChecker().stock_25()
 
-    if stock_1_info or stock_2_info or stock_3_info or stock_4_info or stock_5_info or stock_6_info or stock_7_info or \
-            stock_8_info or stock_9_info or stock_10_info or stock_11_info or stock_12_info or stock_13_info or \
-            stock_14_info or stock_15_info or stock_16_info or stock_17_info or stock_18_info or stock_19_info or \
-            stock_20_info or stock_21_info or stock_22_info or stock_23_info or stock_24_info or stock_25_info:
-        email_text = f'Watchlist Notification\n\n'
+    email_text = ''
 
-        if stock_1_info:
-            email_text += stock_1_info
+    if stock_1_info:
+        email_text += stock_1_info
 
-        if stock_2_info:
-            email_text += stock_2_info
+    if stock_2_info:
+        email_text += stock_2_info
 
-        if stock_3_info:
-            email_text += stock_3_info
+    if stock_3_info:
+        email_text += stock_3_info
 
-        if stock_4_info:
-            email_text += stock_4_info
+    if stock_4_info:
+        email_text += stock_4_info
 
-        if stock_5_info:
-            email_text += stock_5_info
+    if stock_5_info:
+        email_text += stock_5_info
 
-        if stock_6_info:
-            email_text += stock_6_info
+    if stock_6_info:
+        email_text += stock_6_info
 
-        if stock_7_info:
-            email_text += stock_7_info
+    if stock_7_info:
+        email_text += stock_7_info
 
-        if stock_8_info:
-            email_text += stock_8_info
+    if stock_8_info:
+        email_text += stock_8_info
 
-        if stock_9_info:
-            email_text += stock_9_info
+    if stock_9_info:
+        email_text += stock_9_info
 
-        if stock_10_info:
-            email_text += stock_10_info
+    if stock_10_info:
+        email_text += stock_10_info
 
-        if stock_11_info:
-            email_text += stock_11_info
+    if stock_11_info:
+        email_text += stock_11_info
 
-        if stock_12_info:
-            email_text += stock_12_info
+    if stock_12_info:
+        email_text += stock_12_info
 
-        if stock_13_info:
-            email_text += stock_13_info
+    if stock_13_info:
+        email_text += stock_13_info
 
-        if stock_14_info:
-            email_text += stock_14_info
+    if stock_14_info:
+        email_text += stock_14_info
 
-        if stock_15_info:
-            email_text += stock_15_info
+    if stock_15_info:
+        email_text += stock_15_info
 
-        if stock_16_info:
-            email_text += stock_16_info
+    if stock_16_info:
+        email_text += stock_16_info
 
-        if stock_17_info:
-            email_text += stock_17_info
+    if stock_17_info:
+        email_text += stock_17_info
 
-        if stock_18_info:
-            email_text += stock_18_info
+    if stock_18_info:
+        email_text += stock_18_info
 
-        if stock_19_info:
-            email_text += stock_19_info
+    if stock_19_info:
+        email_text += stock_19_info
 
-        if stock_20_info:
-            email_text += stock_20_info
+    if stock_20_info:
+        email_text += stock_20_info
 
-        if stock_21_info:
-            email_text += stock_21_info
+    if stock_21_info:
+        email_text += stock_21_info
 
-        if stock_22_info:
-            email_text += stock_22_info
+    if stock_22_info:
+        email_text += stock_22_info
 
-        if stock_23_info:
-            email_text += stock_23_info
+    if stock_23_info:
+        email_text += stock_23_info
 
-        if stock_24_info:
-            email_text += stock_24_info
+    if stock_24_info:
+        email_text += stock_24_info
 
-        if stock_25_info:
-            email_text += stock_25_info
+    if stock_25_info:
+        email_text += stock_25_info
 
+    if email_text:
+        print(email_text)
         return email_text
     else:
         print('Nothing to notify, bye..')
@@ -159,7 +157,7 @@ def send_email():
         sender = f'Black Pearl <{sender_env}>'
         recipient = [f'{recipient_env}']
         title = f'Black Pearl Alert as of {dt_string}'
-        text = f'{email_data}\n\nNavigate to check logs: {logs}\n\n{footer_text}'
+        text = f'Watchlist Notification\n\n{email_data}Navigate to check logs: {logs}\n\n{footer_text}'
         Emailer(sender, recipient, title, text)
         return email_data
 
@@ -177,7 +175,7 @@ def send_whatsapp(data, context):
             from_number = f"whatsapp:{whatsapp_send}"
             to_number = f"whatsapp:{whatsapp_receive}"
             client = Client(sid, token)
-            client.messages.create(body=f'{dt_string}\n\n{whatsapp_msg}Log info here\n{logs}',
+            client.messages.create(body=f'{dt_string}\n\nWatchlist Notification\n\n{whatsapp_msg}Log info here\n{logs}',
                                    from_=from_number,
                                    to=to_number)
 
